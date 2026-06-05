@@ -2,7 +2,7 @@
   "name": "coffeebase",
   "version": "0.0.1",
   "description": "Backend for coffeebase website ",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "author": "Sean Boonzaier",
   "type": "module",
   "main": "dist/index.js",
