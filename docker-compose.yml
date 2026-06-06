@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   #1 Database Layer
   postgres-db:
@@ -8,6 +6,9 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: coffeebase_prod
+      POSTGRES_DB: coffeebase_dev
     volumes:
       - postgres_data:/var/lib/postgres/data
+
+volumes:
+  postgres_data:
