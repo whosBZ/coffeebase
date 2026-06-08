@@ -1,7 +1,7 @@
 services:
   #1 Database Layer
   postgres-db:
-    image: postgres:16-alpine
+    image: timescale/timescaledb-ha:pg16
     container_name: coffeebase_postgres
     environment:
       POSTGRES_USER: admin
