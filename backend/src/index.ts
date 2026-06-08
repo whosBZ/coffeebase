@@ -1,5 +1,4 @@
 import express from "express";
-import { type Request, type Response } from "express";
 import { cafeRouter } from "./routes/cafe.routes.js";
 const app = express();
 const port = 3000;
