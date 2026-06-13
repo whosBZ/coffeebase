@@ -12,7 +12,7 @@ export const getNearbyCafes = async (
 ) => {
   try {
     const cafes = await cafeService.fetchCafesByLocation(1, 2);
-    res.status(200).json({ status: "sucess", data: cafes });
+    res.status(200).json({ status: "success", data: cafes });
   } catch (error) {
     next(error);
   }
@@ -27,6 +27,28 @@ export const getAllCafes = async (
     console.log(JSON.stringify(req.query));
     const cafes = await cafeService.fetchAllCafes(Number(req.query.limit));
     res.status(200).json({ status: "success", data: cafes });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCafesBySubstring = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (req.query.cafeSubstr) {
+      const cafes = await cafeService.searchCafesByName(
+        String(req.query.cafeSubstr),
+      );
+      res.status(200).json({ status: "success", data: cafes });
+    } else {
+      res.status(400).json({
+        status: "fail",
+        message: "Missing required query paramanter: cafeSubtr",
+      });
+    }
   } catch (error) {
     next(error);
   }
