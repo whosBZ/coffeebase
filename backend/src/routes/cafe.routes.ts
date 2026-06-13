@@ -6,5 +6,5 @@ import {
 
 export const cafeRouter = Router();
 
-cafeRouter.get("/{:limit}", getAllCafes);
+cafeRouter.get("/", getAllCafes);
 cafeRouter.get("/nearby", getNearbyCafes);
