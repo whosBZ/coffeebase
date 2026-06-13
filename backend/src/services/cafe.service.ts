@@ -19,8 +19,8 @@ export const fetchAllCafes = async (limit?: number) => {
       SELECT
         cafe_name as name,
         cafe_description as description,
-        ST_X(cafe_location) as latitude,
-        ST_Y(cafe_location) as longitude
+        ST_X(cafe_location) as longitude,
+        ST_Y(cafe_location) as latitude
       FROM cafes
       `;
 
