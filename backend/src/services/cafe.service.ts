@@ -1,4 +1,3 @@
-import type { QueryResult } from "pg";
 import { CafeRepository } from "../repositories/cafe-repository.js";
 const cafes = ["Insomnia", "Cafe Nero", "Wall & Keogh", "Brewlabs"];
 
@@ -19,7 +18,18 @@ export class CafeService {
   // Needs to ensure you understand pagination
   public fetchAllCafes = async (limit?: number) => {
     try {
-      const result = await this.cafeRepo.fetchAllCafes(limit);
+      const result = await this.cafeRepo.fetchAll(limit);
+      return result;
+    } catch (error) {
+      console.log("Database query error:", error);
+      throw error;
+    }
+  };
+
+  // Allows searching by substring
+  public searchCafesByName = async (cafeSubstr: string) => {
+    try {
+      const result = await this.cafeRepo.fetchBySubstr(cafeSubstr);
       return result;
     } catch (error) {
       console.log("Database query error:", error);
