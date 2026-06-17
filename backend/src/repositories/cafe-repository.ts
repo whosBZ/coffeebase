@@ -19,7 +19,7 @@ export class CafeRepository {
   }
 
   async fetchBySubstr(substr: string): Promise<Cafe[] | null> {
-    console.log(substr);
+    const formattedSubstr = substr.toLowerCase();
     const sql = `
       SELECT
         cafe_name as name,
@@ -28,8 +28,8 @@ export class CafeRepository {
         ST_Y(cafe_location) as latitude
       FROM cafes where cafe_name like concat('%', $1::text, '%')
       `;
-    const res = substr
-      ? await query(sql, [substr]).then(
+    const res = formattedSubstr
+      ? await query(sql, [formattedSubstr]).then(
           (response: QueryResult) => response.rows,
         )
       : null;
