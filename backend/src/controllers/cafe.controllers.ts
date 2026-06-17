@@ -63,7 +63,7 @@ export const addNewCafe = async (
     if (req.body) {
       let cafeServiceValid = cafeService.validateCafeBody(req.body);
       if (!cafeServiceValid) {
-        // const result = await cafeService.insertNewCafe(req.body);
+        const result = await cafeService.insertNewCafe(req.body);
         res.status(200).json({
           status: "sucess",
           message: "Cafe added to database",

@@ -41,14 +41,14 @@ export class CafeRepository {
     try {
       const formattedName = cafe.name.toLowerCase();
       const sql = `
-        insert into table cafes values(cafe_name, cafe_description, cafe_location)
-        values($1, $2, ST_GeomFromText('POINT($3 $4)', 4326))
+        insert into cafes(cafe_name, cafe_description, cafe_location)
+        values($1, $2, ST_PointFromText('POINT(' || $3::text || ' ' || $4::text || ')', 4326))
         `;
       const res = await query(sql, [
         formattedName,
         cafe.description,
-        cafe.latitude,
         cafe.longitude,
+        cafe.latitude,
       ]);
       return "Sucessfully inserted cafe";
     } catch (err) {

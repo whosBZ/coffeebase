@@ -39,12 +39,8 @@ export class CafeService {
   };
 
   public insertNewCafe = async (cafe: Cafe) => {
-    try {
-      const result = await this.cafeRepo.addCafe(cafe);
-      return result;
-    } catch (error) {
-      console.log();
-    }
+    const result = await this.cafeRepo.addCafe(cafe);
+    return result;
   };
 
   public validateCafeBody = (cafe: Cafe) => {
