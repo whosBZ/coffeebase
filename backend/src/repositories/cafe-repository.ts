@@ -58,14 +58,13 @@ export class CafeRepository {
     }
   }
 
-  async deleteCafe(cafeName: string): Promise<string> {
+  async deleteCafe(cafeId: number): Promise<string> {
     try {
-      const formattedName = cafeName.toLowerCase();
       const sql = `
         delete from cafes
-        where cafe_name = $1
+        where id = $1
         `;
-      await query(sql, [formattedName]);
+      await query(sql, [cafeId]);
       return "Successfull deleted cafe";
     } catch (error) {
       throw error;

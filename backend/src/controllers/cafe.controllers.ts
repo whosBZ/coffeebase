@@ -83,8 +83,8 @@ export const deleteCafe = async (
   next: NextFunction,
 ) => {
   try {
-    if (req.query.cafeName && typeof req.query.cafeName == "string") {
-      const result = await cafeService.deleteCafe(req.query.cafeName);
+    if (req.query.cafeId) {
+      const result = await cafeService.deleteCafe(Number(req.query.cafeId));
       res.status(200).json({
         status: "success",
         message: result,
@@ -92,7 +92,7 @@ export const deleteCafe = async (
     } else {
       res.status(400).json({
         status: "fail",
-        message: "No or invalid name provided",
+        message: "No cafe id provided",
       });
     }
   } catch (error) {

@@ -43,8 +43,9 @@ export class CafeService {
     else throw Error(cafeBodyInvalid);
   };
 
-  public deleteCafe = async (cafeName: string) => {
-    const result = await this.cafeRepo.deleteCafe(cafeName);
+  public deleteCafe = async (cafeId: number) => {
+    if (isNaN(cafeId)) throw Error("Invalid Cafe ID provided");
+    const result = await this.cafeRepo.deleteCafe(cafeId);
     return result;
   };
 
