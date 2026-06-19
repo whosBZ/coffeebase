@@ -81,22 +81,4 @@ export class CafeService {
 
     return null;
   };
-
-  public fetchCafesWithBeansByBrand = async (beanBrand: string) => {
-    console.log("Cafe with beans by brand");
-    return [
-      "Cafe with beans by brand #1",
-      "Cafe with beans by name #2",
-      "Cafe with beans by name #3",
-    ];
-  };
-
-  public fetchCafesWithBeansByName = async (beanName: string) => {
-    console.log("Cafe with beans by name");
-    return [
-      "Cafe with beans by name #1",
-      "Cafe with beans by name #2",
-      "Cafe with beans by name #3",
-    ];
-  };
 }
