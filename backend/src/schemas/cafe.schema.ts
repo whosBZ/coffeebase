@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { type Request } from "express";
 
+// Zod Schemas
 export const CafeDbSchema = z.object({
   id: z.coerce.number(),
   name: z.string().min(3),
@@ -9,6 +10,7 @@ export const CafeDbSchema = z.object({
   latitude: z.coerce.number().min(-90).max(90),
 });
 
+// Schemas for request validation
 export const CreateCafeRequestSchema = z.object({
   body: CafeDbSchema.omit({ id: true }),
 });
@@ -17,7 +19,12 @@ export const DeleteCafeRequestSchema = z.object({
   query: CafeDbSchema.pick({ id: true }),
 });
 
+// General Typescript types
 export type Cafe = z.infer<typeof CafeDbSchema>;
-export type CreateCafeInput = z.infer<typeof CreateCafeRequestSchema>;
+export type NewCafe = Omit<Cafe, "id">;
+
+// Types for overriding default express request objects
+export type CreateCafeRequestInput = Omit<Request, "body"> &
+  z.infer<typeof CreateCafeRequestSchema>;
 export type DeleteCafeRequestInput = Request &
   z.infer<typeof DeleteCafeRequestSchema>;

@@ -1,6 +1,6 @@
 import type { QueryResult } from "pg";
 import { query } from "../config/db.js";
-import { type Cafe } from "../schemas/cafe.schema.js";
+import { type Cafe, type NewCafe } from "../schemas/cafe.schema.js";
 
 export class CafeRepository {
   async fetchAll(limit?: number): Promise<Cafe[] | null> {
@@ -39,14 +39,14 @@ export class CafeRepository {
     return res;
   }
 
-  async addCafe(cafe: Cafe): Promise<string> {
+  async addCafe(cafe: NewCafe): Promise<string> {
     try {
       const formattedName = cafe.name.toLowerCase();
       const sql = `
         insert into cafes(cafe_name, cafe_description, cafe_location)
         values($1, $2, ST_PointFromText('POINT(' || $3::text || ' ' || $4::text || ')', 4326))
         `;
-      const res = await query(sql, [
+      await query(sql, [
         formattedName,
         cafe.description,
         cafe.longitude,

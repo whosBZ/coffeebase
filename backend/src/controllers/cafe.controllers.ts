@@ -1,7 +1,10 @@
 import type { NextFunction, Request, Response } from "express";
 import { CafeRepository } from "../repositories/cafe-repository.js";
 import { CafeService } from "../services/cafe.service.js";
-import type { DeleteCafeRequestInput } from "../schemas/cafe.schema.js";
+import type {
+  CreateCafeRequestInput,
+  DeleteCafeRequestInput,
+} from "../schemas/cafe.schema.js";
 
 const cafeRepo = new CafeRepository();
 const cafeService = new CafeService(cafeRepo);
@@ -56,7 +59,7 @@ export const getCafesBySubstring = async (
 };
 
 export const addNewCafe = async (
-  req: Request,
+  req: CreateCafeRequestInput,
   res: Response,
   next: NextFunction,
 ) => {
@@ -77,8 +80,7 @@ export const deleteCafe = async (
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.query;
-    await cafeService.deleteCafe(id);
+    await cafeService.deleteCafe(req.query.id);
     res.status(200).json({
       status: "sucess",
       message: "Cafe deleted from database",
