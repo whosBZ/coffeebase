@@ -43,9 +43,8 @@ export class CafeService {
     else throw Error(cafeBodyInvalid);
   };
 
-  public deleteCafe = async (cafeId: string) => {
-    const validCafeId = this.validateCafeId(cafeId);
-    const result = await this.cafeRepo.deleteCafe(validCafeId);
+  public deleteCafe = async (cafeId: number) => {
+    const result = await this.cafeRepo.deleteCafe(cafeId);
     return result;
   };
 

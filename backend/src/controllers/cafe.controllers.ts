@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { CafeRepository } from "../repositories/cafe-repository.js";
 import { CafeService } from "../services/cafe.service.js";
+import type { DeleteCafeRequestInput } from "../schemas/cafe.schema.js";
 
 const cafeRepo = new CafeRepository();
 const cafeService = new CafeService(cafeRepo);
@@ -71,23 +72,17 @@ export const addNewCafe = async (
 };
 
 export const deleteCafe = async (
-  req: Request,
+  req: DeleteCafeRequestInput,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    if (req.query.id && typeof req.query.id == "string") {
-      const result = await cafeService.deleteCafe(req.query.id);
-      res.status(200).json({
-        status: "success",
-        message: result,
-      });
-    } else {
-      res.status(400).json({
-        status: "fail",
-        message: "No cafe id provided",
-      });
-    }
+    const { id } = req.query;
+    await cafeService.deleteCafe(id);
+    res.status(200).json({
+      status: "sucess",
+      message: "Cafe deleted from database",
+    });
   } catch (error) {
     next(error);
   }
