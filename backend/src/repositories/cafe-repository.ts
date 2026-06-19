@@ -6,6 +6,7 @@ export class CafeRepository {
   async fetchAll(limit?: number): Promise<Cafe[] | null> {
     const sql = `
       SELECT
+        id,
         cafe_name as name,
         cafe_description as description,
         ST_X(cafe_location) as longitude,
@@ -22,6 +23,7 @@ export class CafeRepository {
     const formattedSubstr = substr.toLowerCase();
     const sql = `
       SELECT
+        id,
         cafe_name as name,
         cafe_description as description,
         ST_X(cafe_location) as longitude,
