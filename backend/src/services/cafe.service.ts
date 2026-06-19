@@ -1,5 +1,5 @@
 import { CafeRepository } from "../repositories/cafe-repository.js";
-import type { Cafe } from "../types/cafe.js";
+import { type Cafe } from "../schemas/cafe.schema.js";
 
 export class CafeService {
   private cafeRepo: CafeRepository;

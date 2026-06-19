@@ -1,6 +1,6 @@
 import type { QueryResult } from "pg";
 import { query } from "../config/db.js";
-import { type Cafe } from "../types/cafe.js";
+import { type Cafe } from "../schemas/cafe.schema.js";
 
 export class CafeRepository {
   async fetchAll(limit?: number): Promise<Cafe[] | null> {
