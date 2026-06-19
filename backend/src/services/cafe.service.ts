@@ -43,30 +43,40 @@ export class CafeService {
     else throw Error(cafeBodyInvalid);
   };
 
-  public deleteCafe = async (cafeId: number) => {
-    if (isNaN(cafeId)) throw Error("Invalid Cafe ID provided");
-    const result = await this.cafeRepo.deleteCafe(cafeId);
+  public deleteCafe = async (cafeId: string) => {
+    const validCafeId = this.validateCafeId(cafeId);
+    const result = await this.cafeRepo.deleteCafe(validCafeId);
     return result;
   };
 
   public updateCafe = async (cafe: Cafe) => {
-    const cafeBodyInvalid = this.validateCafeBody(cafe);
-    if (!cafeBodyInvalid) await this.cafeRepo.updateCafe(cafe);
-    else throw Error(cafeBodyInvalid);
+    this.validateCafeBody(cafe);
+    const validCafeId = this.validateCafeId(cafe.id);
+    const validatedCafe: Cafe = {
+      ...cafe,
+      id: validCafeId,
+    };
+    await this.cafeRepo.updateCafe(validatedCafe);
+  };
+
+  private validateCafeId = (cafeId: string | number): number => {
+    const validatedCafeId = Number(cafeId);
+    if (isNaN(validatedCafeId)) throw Error("Invalid Cafe ID provided");
+    else return validatedCafeId;
   };
 
   private validateCafeBody = (cafe: Cafe) => {
     if (!cafe.name || cafe.name.length < 3) {
-      return "Missing or invalid cafe name";
+      throw Error("Missing or invalid cafe name");
     }
     if (!cafe.description || cafe.description.length < 10) {
-      return "Missing or invalid cafe description";
+      throw Error("Missing or invalid cafe description");
     }
     if (!cafe.latitude || cafe.latitude > 90 || cafe.latitude < -90) {
-      return "Invalid or missing latitude";
+      throw Error("Missing or invalid cafe latitude");
     }
     if (!cafe.longitude || cafe.longitude > 180 || cafe.longitude < -180) {
-      return "Invalid or missing longitude";
+      throw Error("Missing or invalid cafe longitude");
     }
 
     return null;
