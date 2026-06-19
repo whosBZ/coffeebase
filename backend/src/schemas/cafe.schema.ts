@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CafeSchema = z.object({
+export const CafeDbSchema = z.object({
   id: z.number(),
   name: z.string().min(3),
   description: z.string().min(1),
@@ -8,4 +8,9 @@ export const CafeSchema = z.object({
   latitude: z.number().min(-90).max(90),
 });
 
-export type Cafe = z.infer<typeof CafeSchema>;
+export const CreateCafeRequestSchema = z.object({
+  body: CafeDbSchema.omit({ id: true }),
+});
+
+export type Cafe = z.infer<typeof CafeDbSchema>;
+export type CreateCafeInput = z.infer<typeof CreateCafeRequestSchema>;

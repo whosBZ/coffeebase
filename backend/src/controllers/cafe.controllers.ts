@@ -60,18 +60,11 @@ export const addNewCafe = async (
   next: NextFunction,
 ) => {
   try {
-    if (req.body) {
-      await cafeService.insertNewCafe(req.body);
-      res.status(200).json({
-        status: "sucess",
-        message: "Cafe added to database",
-      });
-    } else {
-      res.status(400).json({
-        status: "fail",
-        message: "No body supplied",
-      });
-    }
+    await cafeService.insertNewCafe(req.body);
+    res.status(200).json({
+      status: "sucess",
+      message: "Cafe added to database",
+    });
   } catch (error) {
     next(error);
   }
