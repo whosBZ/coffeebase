@@ -39,8 +39,9 @@ export class CafeService {
   };
 
   public insertNewCafe = async (cafe: Cafe) => {
-    const result = await this.cafeRepo.addCafe(cafe);
-    return result;
+    let cafeServiceValid = this.validateCafeBody(cafe);
+    if (!cafeServiceValid) await this.cafeRepo.addCafe(cafe);
+    else throw Error(cafeServiceValid);
   };
 
   public deleteCafe = async (cafeName: string) => {
@@ -48,18 +49,18 @@ export class CafeService {
     return result;
   };
 
-  public validateCafeBody = (cafe: Cafe) => {
+  private validateCafeBody = (cafe: Cafe) => {
     if (!cafe.name || cafe.name.length < 3) {
       return "Missing or invalid cafe name";
     }
     if (!cafe.description || cafe.description.length < 10) {
       return "Missing or invalid cafe description";
     }
-    if (cafe.latitude > 90 || cafe.latitude < -90) {
-      return "Invalid latitude";
+    if (!cafe.latitude || cafe.latitude > 90 || cafe.latitude < -90) {
+      return "Invalid or missing latitude";
     }
-    if (cafe.longitude > 180 || cafe.longitude < -180) {
-      return "Invalid longitude";
+    if (!cafe.longitude || cafe.longitude > 180 || cafe.longitude < -180) {
+      return "Invalid or missing longitude";
     }
 
     return null;
