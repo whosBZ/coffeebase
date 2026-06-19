@@ -51,8 +51,22 @@ export class CafeRepository {
         cafe.latitude,
       ]);
       return "Sucessfully inserted cafe";
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteCafe(cafeName: string): Promise<string> {
+    try {
+      const formattedName = cafeName.toLowerCase();
+      const sql = `
+        delete from cafes
+        where cafe_name = $1
+        `;
+      await query(sql, [formattedName]);
+      return "Successfull deleted cafe";
+    } catch (error) {
+      throw error;
     }
   }
 }

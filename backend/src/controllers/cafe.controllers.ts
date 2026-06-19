@@ -84,3 +84,26 @@ export const addNewCafe = async (
     next(error);
   }
 };
+
+export const deleteCafe = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (req.query.cafeName && typeof req.query.cafeName == "string") {
+      const result = await cafeService.deleteCafe(req.query.cafeName);
+      res.status(200).json({
+        status: "success",
+        message: result,
+      });
+    } else {
+      res.status(400).json({
+        status: "fail",
+        message: "No cafe name provided",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};

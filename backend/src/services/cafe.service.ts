@@ -43,6 +43,11 @@ export class CafeService {
     return result;
   };
 
+  public deleteCafe = async (cafeName: string) => {
+    const result = await this.cafeRepo.deleteCafe(cafeName);
+    return result;
+  };
+
   public validateCafeBody = (cafe: Cafe) => {
     if (!cafe.name || cafe.name.length < 3) {
       return "Missing or invalid cafe name";
