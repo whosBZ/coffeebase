@@ -41,22 +41,16 @@ export class CafeService {
     }
   };
 
-  public insertNewCafe = async (cafe: NewCafe) => {
+  public insertNewCafe = async (cafe: NewCafe): Promise<string> => {
     return await this.cafeRepo.addCafe(cafe);
   };
 
-  public deleteCafe = async (cafeId: number) => {
+  public deleteCafe = async (cafeId: number): Promise<string> => {
     return await this.cafeRepo.deleteCafe(cafeId);
   };
 
-  public updateCafe = async (cafe: Cafe) => {
-    this.validateCafeBody(cafe);
-    const validCafeId = this.validateCafeId(cafe.id);
-    const validatedCafe: Cafe = {
-      ...cafe,
-      id: validCafeId,
-    };
-    await this.cafeRepo.updateCafe(validatedCafe);
+  public updateCafe = async (cafe: Cafe): Promise<string> => {
+    return await this.cafeRepo.updateCafe(cafe);
   };
 
   private validateCafeId = (cafeId: string | number): number => {

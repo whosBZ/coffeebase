@@ -4,11 +4,13 @@ import { type Request, type Response, type NextFunction } from "express";
 const validate =
   (schema) => (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
       const parsed = schema.parse({
         body: req.body,
         query: req.query,
         params: req.params,
       });
+      console.log(parsed);
       next();
     } catch (error) {
       return res.status(400).json({

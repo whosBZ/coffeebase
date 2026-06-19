@@ -19,12 +19,19 @@ export const DeleteCafeRequestSchema = z.object({
   query: CafeDbSchema.pick({ id: true }),
 });
 
+export const UpdateCafeRequestSchema = z.object({
+  body: CafeDbSchema,
+});
+
 // General Typescript types
 export type Cafe = z.infer<typeof CafeDbSchema>;
 export type NewCafe = Omit<Cafe, "id">;
 
 // Types for overriding default express request objects
-export type CreateCafeRequestInput = Omit<Request, "body"> &
+export type NoBodyRequest = Omit<Request, "body">;
+export type CreateCafeRequestInput = NoBodyRequest &
   z.infer<typeof CreateCafeRequestSchema>;
 export type DeleteCafeRequestInput = Request &
   z.infer<typeof DeleteCafeRequestSchema>;
+export type UpdateCafeRequestInput = NoBodyRequest &
+  z.infer<typeof UpdateCafeRequestSchema>;

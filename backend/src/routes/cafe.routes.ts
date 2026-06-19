@@ -9,8 +9,10 @@ import {
 } from "../controllers/cafe.controllers.js";
 import { validate } from "../middleware/validate.middleware.js";
 import {
+  CafeDbSchema,
   CreateCafeRequestSchema,
   DeleteCafeRequestSchema,
+  UpdateCafeRequestSchema,
 } from "../schemas/cafe.schema.js";
 
 export const cafeRouter = Router();
@@ -20,4 +22,4 @@ cafeRouter.get("/search", getCafesBySubstring);
 cafeRouter.get("/nearby", getNearbyCafes);
 cafeRouter.post("/addCafe", validate(CreateCafeRequestSchema), addNewCafe);
 cafeRouter.delete("/deleteCafe", validate(DeleteCafeRequestSchema), deleteCafe);
-cafeRouter.patch("/updateCafe", updateCafe);
+cafeRouter.patch("/updateCafe", validate(UpdateCafeRequestSchema), updateCafe);

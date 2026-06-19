@@ -4,6 +4,7 @@ import { CafeService } from "../services/cafe.service.js";
 import type {
   CreateCafeRequestInput,
   DeleteCafeRequestInput,
+  UpdateCafeRequestInput,
 } from "../schemas/cafe.schema.js";
 
 const cafeRepo = new CafeRepository();
@@ -91,23 +92,16 @@ export const deleteCafe = async (
 };
 
 export const updateCafe = async (
-  req: Request,
+  req: UpdateCafeRequestInput,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    if (req.body.id) {
-      const result = await cafeService.updateCafe(req.body);
-      res.status(200).json({
-        status: "success",
-        message: result,
-      });
-    } else {
-      res.status(400).json({
-        status: "fail",
-        message: "No or invalid cafe id provided",
-      });
-    }
+    const result = await cafeService.updateCafe(req.body);
+    res.status(200).json({
+      status: "success",
+      message: result,
+    });
   } catch (error) {
     next(error);
   }
