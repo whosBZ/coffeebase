@@ -5,6 +5,7 @@ import {
   getNearbyCafes,
   addNewCafe,
   deleteCafe,
+  updateCafe,
 } from "../controllers/cafe.controllers.js";
 
 export const cafeRouter = Router();
@@ -14,3 +15,4 @@ cafeRouter.get("/search", getCafesBySubstring);
 cafeRouter.get("/nearby", getNearbyCafes);
 cafeRouter.post("/addCafe", addNewCafe);
 cafeRouter.delete("/deleteCafe", deleteCafe);
+cafeRouter.patch("/updateCafe", updateCafe);

@@ -71,4 +71,26 @@ export class CafeRepository {
       throw error;
     }
   }
+
+  async updateCafe(cafe: Cafe): Promise<string> {
+    try {
+      const formattedName = cafe.name.toLowerCase();
+      const sql = `
+        update cafes
+        set cafe_name = $1,
+          cafe_description = $2,
+          cafe_location = ST_PointFromText('POINT(' || $3::text || ' ' || $4::text || ')', 4326)
+        where cafe_name = $1
+        `;
+      await query(sql, [
+        formattedName,
+        cafe.description,
+        cafe.longitude,
+        cafe.latitude,
+      ]);
+      return "Succesfully updated cafe";
+    } catch (error) {
+      throw error;
+    }
+  }
 }

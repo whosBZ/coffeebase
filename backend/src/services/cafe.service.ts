@@ -1,6 +1,5 @@
 import { CafeRepository } from "../repositories/cafe-repository.js";
 import type { Cafe } from "../types/cafe.js";
-const cafes = ["Insomnia", "Cafe Nero", "Wall & Keogh", "Brewlabs"];
 
 export class CafeService {
   private cafeRepo: CafeRepository;
@@ -39,14 +38,20 @@ export class CafeService {
   };
 
   public insertNewCafe = async (cafe: Cafe) => {
-    let cafeServiceValid = this.validateCafeBody(cafe);
-    if (!cafeServiceValid) await this.cafeRepo.addCafe(cafe);
-    else throw Error(cafeServiceValid);
+    let cafeBodyInvalid = this.validateCafeBody(cafe);
+    if (!cafeBodyInvalid) await this.cafeRepo.addCafe(cafe);
+    else throw Error(cafeBodyInvalid);
   };
 
   public deleteCafe = async (cafeName: string) => {
     const result = await this.cafeRepo.deleteCafe(cafeName);
     return result;
+  };
+
+  public updateCafe = async (cafe: Cafe) => {
+    const cafeBodyInvalid = this.validateCafeBody(cafe);
+    if (!cafeBodyInvalid) await this.cafeRepo.updateCafe(cafe);
+    else throw Error(cafeBodyInvalid);
   };
 
   private validateCafeBody = (cafe: Cafe) => {
