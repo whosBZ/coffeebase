@@ -6,8 +6,8 @@
 * **So that** I can find a good cafe to go to in my area
 
 ### Technical Implmentation Checklist:
-- [ ] Create Database Cafe Schema (fields: `id`, `name`, `latitude`, `longitude`, `description`)
-- [ ] **Route:** `GET /v1/cafes`
+- [x] Create Database Cafe Schema (fields: `id`, `name`, `latitude`, `longitude`, `description`)
+- [x] **Route:** `GET /v1/cafes`
   - *Sucess Response:* `200 Sucess` [list of cafes]
   - *Error Response:* `400 Bad Request`
 - [ ] **Frontend:**
