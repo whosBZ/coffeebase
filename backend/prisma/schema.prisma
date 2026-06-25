@@ -13,3 +13,10 @@ datasource db {
   provider   = "postgresql"
   extensions = [postgis]
 }
+
+model Cafe {
+  id               Int                                   @id @default(autoincrement())
+  cafe_name        String                                @unique @db.VarChar(50)
+  cafe_description String                                @db.VarChar(255)
+  cafe_location    Unsupported("geography(Point, 4326)")
+}
