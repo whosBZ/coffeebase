@@ -9,8 +9,8 @@ export class CafeRepository {
         id,
         cafe_name as name,
         cafe_description as description,
-        ST_X(cafe_location) as longitude,
-        ST_Y(cafe_location) as latitude
+        ST_X(cafe_location::geometry) as longitude,
+        ST_Y(cafe_location::geometry) as latitude
       FROM cafes ${limit ? "limit $1" : ""}
       `;
 
@@ -26,8 +26,8 @@ export class CafeRepository {
         id,
         cafe_name as name,
         cafe_description as description,
-        ST_X(cafe_location) as longitude,
-        ST_Y(cafe_location) as latitude
+        ST_X(cafe_location:geometry) as longitude,
+        ST_Y(cafe_location:geometry) as latitude
       FROM cafes where cafe_name like concat('%', $1::text, '%')
       `;
     const res = formattedSubstr
