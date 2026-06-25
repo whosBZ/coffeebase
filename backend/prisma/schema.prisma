@@ -14,7 +14,7 @@ datasource db {
   extensions = [postgis]
 }
 
-model Cafe {
+model cafes {
   id               Int                                   @id @default(autoincrement())
   cafe_name        String                                @unique @db.VarChar(50)
   cafe_description String                                @db.VarChar(255)
