@@ -2,7 +2,7 @@ import type { ZodSchema } from "zod/v3";
 import { type Request, type Response, type NextFunction } from "express";
 
 const validate =
-  (schema) => (req: Request, res: Response, next: NextFunction) => {
+  (schema: any) => (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log(req.body);
       const parsed = schema.parse({
@@ -12,10 +12,10 @@ const validate =
       });
       console.log(parsed);
       next();
-    } catch (error) {
+    } catch (error: any) {
       return res.status(400).json({
         status: "fail",
-        errors: JSON.parse(error.message).map((err) => ({
+        errors: JSON.parse(error.message).map((err: any) => ({
           path: err.path,
           message: err.message,
         })),

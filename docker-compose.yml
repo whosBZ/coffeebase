@@ -1,14 +1,47 @@
 services:
-  #1 Database Layer
-  postgres-db:
+  #1 Local Postgres Database Layer
+  postgres_dev:
     image: timescale/timescaledb-ha:pg16
-    container_name: coffeebase_postgres
+    container_name: coffeebase_postgres_dev
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: coffeebase_dev
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgres/data
+    networks:
+      - coffeebase_net
+    # ◄ ADD THIS: Periodically pings the database to ensure it's actually responding
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d coffeebase_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  #2 Backend Layer
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      network: host
+    container_name: coffeebase_backend_api
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql://admin:super_secret_password_123@postgres_dev:5432/coffeebase_dev?schema=public"
+    # ◄ UPDATE THIS: Tells the backend to wait for the healthcheck to pass successfully
+    depends_on:
+      postgres_dev:
+        condition: service_healthy
+    networks:
+      - coffeebase_net
+
+networks:
+  coffeebase_net:
+    driver: bridge
 
 volumes:
   postgres_data:
