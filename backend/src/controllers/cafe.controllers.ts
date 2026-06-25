@@ -67,7 +67,7 @@ export const addNewCafe = async (
   try {
     await cafeService.insertNewCafe(req.body);
     res.status(200).json({
-      status: "sucess",
+      status: "success",
       message: "Cafe added to database",
     });
   } catch (error) {
@@ -83,7 +83,7 @@ export const deleteCafe = async (
   try {
     await cafeService.deleteCafe(req.query.id);
     res.status(200).json({
-      status: "sucess",
+      status: "success",
       message: "Cafe deleted from database",
     });
   } catch (error) {

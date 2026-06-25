@@ -65,7 +65,7 @@ export class CafeRepository {
         where id = $1
         `;
       await query(sql, [cafeId]);
-      return "Successfull deleted cafe";
+      return "Successfully deleted cafe";
     } catch (error) {
       throw error;
     }
