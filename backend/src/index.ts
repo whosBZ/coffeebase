@@ -4,7 +4,7 @@ import express, {
   type Response,
 } from "express";
 import { cafeRouter } from "./routes/cafe.routes.js";
-const app = express();
+export const app = express();
 const port = 3000;
 
 app.use(express.json());
