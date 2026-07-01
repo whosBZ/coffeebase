@@ -81,7 +81,7 @@ export const deleteCafe = async (
   next: NextFunction,
 ) => {
   try {
-    await cafeService.deleteCafe(req.query.id);
+    await cafeService.deleteCafe(req.params.id);
     res.status(200).json({
       status: "success",
       message: "Cafe deleted from database",
@@ -97,7 +97,7 @@ export const updateCafe = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await cafeService.updateCafe(req.body);
+    const result = await cafeService.updateCafe(req.params.id, req.body);
     res.status(200).json({
       status: "success",
       message: result,

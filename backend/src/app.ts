@@ -1,10 +1,11 @@
 import express, {
+  type Express,
   type NextFunction,
   type Request,
   type Response,
 } from "express";
 import { cafeRouter } from "./routes/cafe.routes.js";
-const app = express();
+const app: Express = express();
 
 app.use(express.json());
 

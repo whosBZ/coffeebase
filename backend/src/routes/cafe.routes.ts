@@ -15,11 +15,11 @@ import {
   UpdateCafeRequestSchema,
 } from "../schemas/cafe.schema.js";
 
-export const cafeRouter = Router();
+export const cafeRouter: Router = Router();
 
 cafeRouter.get("/", getAllCafes);
 cafeRouter.get("/search", getCafesBySubstring);
 cafeRouter.get("/nearby", getNearbyCafes);
-cafeRouter.post("/addCafe", validate(CreateCafeRequestSchema), addNewCafe);
-cafeRouter.delete("/deleteCafe", validate(DeleteCafeRequestSchema), deleteCafe);
-cafeRouter.patch("/updateCafe", validate(UpdateCafeRequestSchema), updateCafe);
+cafeRouter.post("/", validate(CreateCafeRequestSchema), addNewCafe);
+cafeRouter.delete("/:id", validate(DeleteCafeRequestSchema), deleteCafe);
+cafeRouter.patch("/:id", validate(UpdateCafeRequestSchema), updateCafe);

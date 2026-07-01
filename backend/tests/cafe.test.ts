@@ -6,7 +6,7 @@ afterAll(async () => {
   await pool.end();
 });
 
-describe("POST /api/cafes/addCafe", () => {
+describe("POST /api/cafes", () => {
   it("Should validate input via Zod and create a new cafe", async () => {
     const payload = {
       name: "Brewlabs",
@@ -16,9 +16,7 @@ describe("POST /api/cafes/addCafe", () => {
       longitude: "-6.265785753638034",
     };
 
-    const response = await request(app).post("/v1/cafes/addCafe").send(payload);
-
-    console.log(response);
+    const response = await request(app).post("/v1/cafes").send(payload);
 
     expect(response.status).toBe(200);
 
@@ -31,7 +29,7 @@ describe("POST /api/cafes/addCafe", () => {
     const badPayload = { name: "" };
 
     const response = await request(app)
-      .post("/v1/cafes/addCafe")
+      .post("/v1/cafes")
       .send(badPayload);
 
     expect(response.status).toBe(400);

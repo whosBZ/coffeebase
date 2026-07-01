@@ -16,11 +16,12 @@ export const CreateCafeRequestSchema = z.object({
 });
 222;
 export const DeleteCafeRequestSchema = z.object({
-  query: CafeDbSchema.pick({ id: true }),
+  params: CafeDbSchema.pick({ id: true }),
 });
 
 export const UpdateCafeRequestSchema = z.object({
-  body: CafeDbSchema,
+  params: CafeDbSchema.pick({ id: true }),
+  body: CafeDbSchema.omit({ id: true}),
 });
 
 // General Typescript types

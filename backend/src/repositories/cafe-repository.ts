@@ -71,7 +71,7 @@ export class CafeRepository {
     }
   }
 
-  async updateCafe(cafe: Cafe): Promise<string> {
+  async updateCafe(cafeId: number, cafe: NewCafe): Promise<string> {
     try {
       const formattedName = cafe.name.toLowerCase();
       const sql = `
@@ -86,7 +86,7 @@ export class CafeRepository {
         cafe.description,
         cafe.longitude,
         cafe.latitude,
-        cafe.id,
+        cafeId,
       ]);
       return "Succesfully updated cafe";
     } catch (error) {

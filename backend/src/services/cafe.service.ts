@@ -49,8 +49,8 @@ export class CafeService {
     return await this.cafeRepo.deleteCafe(cafeId);
   };
 
-  public updateCafe = async (cafe: Cafe): Promise<string> => {
-    return await this.cafeRepo.updateCafe(cafe);
+  public updateCafe = async (cafeId: number, cafe: NewCafe): Promise<string> => {
+    return await this.cafeRepo.updateCafe(cafeId, cafe);
   };
 
   private validateCafeId = (cafeId: string | number): number => {
